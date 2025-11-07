@@ -29,7 +29,6 @@ jobs:
   e2e-test-1-tpu:
     if: github.event.pull_request.draft == false
     runs-on: arc-runner-v6e-1
-    container: python:3.12-slim
     strategy:
       fail-fast: false
     steps:
@@ -39,12 +38,13 @@ jobs:
         timeout-minutes: 120
         shell: bash
         run: |
-          sleep infinity
-          # apt update && apt install -y bash git curl
-          # pip install uv
-          # uv venv --python 3.12 && source .venv/bin/activate && uv pip install -e "python[all]"
-          # bash scripts/killall_sglang.sh
-          # uv run python test/srt/run_suite.py --suite per-commit-tpu-v6e-1
+          sudo apt update && sudo apt install -y python3.12 python3.12-venv git curl procps
+          python3.12 -m venv .venv
+          source .venv/bin/activate
+          pip install uv
+          uv pip install -e "python[all]"
+          bash scripts/killall_sglang.sh
+          python test/srt/run_suite.py --suite per-commit-tpu-v6e-1
 
   # e2e-test-4-tpu:
   #   if: github.event.pull_request.draft == false
