@@ -172,7 +172,7 @@ jobs:
       e2e-test-1-tpu,
       # e2e-test-4-tpu,
     ]
-    runs-on: self-hosted
+    runs-on: arc-runner-v6e-1
     steps:
       - name: Check all dependent job statuses
         run: |
