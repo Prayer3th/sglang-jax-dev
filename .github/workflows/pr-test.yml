@@ -38,6 +38,7 @@ jobs:
       - name: Run test
         timeout-minutes: 120
         run: |
+          apt update && apt install -y bash git curl
           pip install uv tpu-info
           uv venv --python 3.12 && source .venv/bin/activate && uv pip install -e "python[all]"
           bash scripts/killall_sglang.sh
