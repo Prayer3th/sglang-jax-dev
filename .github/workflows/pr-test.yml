@@ -37,9 +37,10 @@ jobs:
         uses: actions/checkout@v4
       - name: Run test
         timeout-minutes: 120
+        shell: bash
         run: |
           apt update && apt install -y bash git curl
-          pip install uv tpu-info psutil
+          pip install uv
           uv venv --python 3.12 && source .venv/bin/activate && uv pip install -e "python[all]"
           bash scripts/killall_sglang.sh
           uv run python test/srt/run_suite.py --suite per-commit-tpu-v6e-1
